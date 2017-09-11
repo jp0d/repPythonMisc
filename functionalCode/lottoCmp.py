@@ -6,6 +6,7 @@ def main():
     os.chdir('/Users/shikha/Documents/code/pythonMisc/functionalCode')
     fpLotto = open('./TattsLotto.csv')
     lstFile = []
+    lstCmp = []
     lstMyLotto = [[1,  4,  11,  27,  33,  38],
                 [5,  16,  22,  30,  40,  42],
                 [7,  13,  26,  30,  37,  41],
@@ -14,7 +15,12 @@ def main():
     for num in lstMyLotto:
         print(num)
     for line in fpLotto:
-        lstFile.append(line)
+        lstFile.append(line.split(','))
+    for i in range(len(lstFile)):
+        lstCmp.append(lstFile[i][2:8])
+
+    print(lstCmp[3])
+    print(lstCmp[200])
 
 if __name__ == "__main__":
     main()
