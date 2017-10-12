@@ -12,7 +12,7 @@ import math
 import numpy as np
 import pandas as pd
 
-def main(coin):
+def main(coin, days):
 	urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 	url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + coin + '&tsyms=BTC,USD,AUD&ts='
 	t1 = datetime.fromtimestamp(1452680400)
@@ -22,15 +22,17 @@ def main(coin):
 	#	print(response.data)
 	
 	t2 = t1 + timedelta(days=100)
+	counter = 0;
 	
-	for i in range(1,10):
-		t2 = t2 + timedelta(days=100)
+	while(t2 < datetime.now()):
+		counter += 1
+		t2 = t2 + timedelta(days=days)
 		furl = url + str(time.mktime(t2.timetuple()))
 #		data = http.request('GET', furl)
 		data = http.urlopen('GET', furl)
 #		print(furl)
-		print(str(i) + str(data.data) + ' timestamp:' + t2.strftime('%Y-%m-%dT%H:%M%SZ'))
+		print(str(counter) + str(data.data) + ' timestamp:' + t2.strftime('%Y-%m-%dT%H:%M%SZ'))
 
 if __name__ == "__main__":
-	main('SC')
+	main('SC', 30)
 
