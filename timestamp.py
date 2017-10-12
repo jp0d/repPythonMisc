@@ -2,21 +2,35 @@ import os
 import io
 import time
 from datetime import datetime
+from datetime import timedelta
 import requests
 import json
 import urllib
+import urllib3
 import bs4
 import math
 import numpy as np
 import pandas as pd
 
-def main():
-	url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=SC&tsyms=BTC,USD,AUD&ts='
-	t = datetime.datetime(1452680400)
+def main(coin):
+	urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+	url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + coin + '&tsyms=BTC,USD,AUD&ts='
+	t1 = datetime.fromtimestamp(1452680400)
 	furl = url + str(time.mktime(t1.timetuple()))
-	data = requests.get(furl)
-	print(data.text)
+	http = urllib3.PoolManager()
+	data = http.request('GET',furl)
+	#	print(response.data)
+	
+	t2 = t1 + timedelta(days=100)
+	
+	for i in range(1,10):
+		t2 = t2 + timedelta(days=100)
+		furl = url + str(time.mktime(t2.timetuple()))
+#		data = http.request('GET', furl)
+		data = http.urlopen('GET', furl)
+#		print(furl)
+		print(str(i) + str(data.data) + ' timestamp:' + t2.strftime('%Y-%m-%dT%H:%M%SZ'))
 
 if __name__ == "__main__":
-	main()
+	main('SC')
 
