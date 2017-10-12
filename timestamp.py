@@ -15,13 +15,13 @@ import pandas as pd
 def main(coin, days):
 	urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 	url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=' + coin + '&tsyms=BTC,USD,AUD&ts='
-	t1 = datetime.fromtimestamp(1452680400)
+	t1 = datetime.fromtimestamp(1420070400)
 	furl = url + str(time.mktime(t1.timetuple()))
 	http = urllib3.PoolManager()
 	data = http.request('GET',furl)
 	#	print(response.data)
 	
-	t2 = t1 + timedelta(days=100)
+	t2 = t1 + timedelta(days=days)
 	counter = 0;
 	
 	while(t2 < datetime.now()):
