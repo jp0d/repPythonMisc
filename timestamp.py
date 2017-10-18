@@ -21,7 +21,7 @@ def main(coin, days):
 	data = http.request('GET',furl)
 	#	print(response.data)
 	
-	t2 = t1 + timedelta(days=days)
+	t2 = t1
 	counter = 0;
 	
 	while(t2 < datetime.now()):
