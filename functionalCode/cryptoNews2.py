@@ -33,4 +33,5 @@ def main(argv):
 	coinNews(argv[1], argv[2])
 
 if __name__ == "__main__":
-	main(sys.argv)
+	#main(sys.argv)
+	coinNews('BTC','title')
